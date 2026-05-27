@@ -4,8 +4,9 @@ pydantic
 sqlalchemy
 psycopg2-binary==2.9.9
 python-jose[cryptography]
-passlib[bcrypt]
-bcrypt==3.2.2
+passlib[argon2]
+argon2-cffi
 python-multipart
 google-generativeai
 PyPDF2
+python-dotenv
