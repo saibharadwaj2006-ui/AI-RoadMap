@@ -1,36 +1,35 @@
-services:
-  # 1. Database
-  - type: pserv
-    name: roadmap-db
-    env: postgres
-    plan: free
-    region: ohio
+version: "1"
+
+databases:
+  - name: roadmap-db
     databaseName: roadmap_db
     user: roadmap_user
+    plan: free
+    region: ohio
 
-  # 2. FastAPI Backend
+services:
   - type: web
     name: roadmap-backend
     env: python
     buildCommand: "cd backend && pip install -r requirements.txt"
     startCommand: "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
+    plan: free
+    region: ohio
     envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: roadmap-db
           property: connectionString
       - key: GEMINI_API_KEY
-        sync: false # User must set this in the Render dashboard
+        sync: false
 
-  # 3. Next.js Frontend
   - type: web
     name: roadmap-frontend
     env: node
     buildCommand: "cd frontend && npm install && npm run build"
     startCommand: "cd frontend && npm run start"
+    plan: free
+    region: ohio
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: roadmap-backend
-          property: url
+        sync: false
