@@ -22,7 +22,7 @@ export default function Login() {
       urlEncodedData.append('username', formData.email);
       urlEncodedData.append('password', formData.password);
 
-      const res = await fetch("http://localhost:8000/auth/login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: urlEncodedData
@@ -37,7 +37,7 @@ export default function Login() {
       localStorage.setItem("token", data.access_token);
       
       try {
-        const roadmapRes = await fetch("http://localhost:8000/roadmap/me", {
+        const roadmapRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/roadmap/me`, {
           headers: { "Authorization": `Bearer ${data.access_token}` }
         });
         if (roadmapRes.ok) {

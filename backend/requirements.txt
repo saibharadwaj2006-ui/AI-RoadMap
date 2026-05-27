@@ -8,3 +8,5 @@ passlib[bcrypt]
 python-multipart
 google-generativeai
 PyPDF2
+
+psycopg2-binary==2.9.9

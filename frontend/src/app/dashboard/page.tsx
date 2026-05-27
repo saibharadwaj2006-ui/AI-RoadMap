@@ -22,7 +22,7 @@ export default function Dashboard() {
       }
 
       // First try to fetch existing roadmap from DB
-      let res = await fetch("http://localhost:8000/roadmap/me", {
+      let res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/roadmap/me`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -42,7 +42,7 @@ export default function Dashboard() {
         }
         
         const contextData = JSON.parse(storedContext);
-        const generateRes = await fetch("http://localhost:8000/roadmap/generate", {
+        const generateRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/roadmap/generate`, {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export default function Dashboard() {
     // Save to DB
     const token = localStorage.getItem("token");
     if (token) {
-      await fetch("http://localhost:8000/roadmap/me", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/roadmap/me`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
