@@ -6,6 +6,7 @@ import google.generativeai as genai
 import json
 from models import User, Roadmap
 from auth import get_current_user
+from typing import List
 
 router = APIRouter(prefix="/roadmap", tags=["roadmap"])
 
@@ -13,8 +14,8 @@ class RoadmapRequest(BaseModel):
     target_career: str
     experience_level: str
     study_time: str
-    technical_skills: list[str] = []
-    soft_skills: list[str] = []
+    technical_skills: List[str] = []
+    soft_skills: List[str] = []
 
 @router.post("/generate")
 async def generate_roadmap(request: RoadmapRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
